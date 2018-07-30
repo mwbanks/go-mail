@@ -7,14 +7,18 @@ import (
 	"os"
 )
 
+type userAuth struct {
+	Username string `json:"username"`
+	Password string `json:"password"`
+}
+
 type config struct {
-	Username string       `json:"username"`
-	Password string       `json:"password"`
-	Server   string       `json:"server"`
-	To       mail.Address `json:"to"`
-	From     mail.Address `json:"from"`
-	Subject  string       `json:"subject"`
-	Body     string       `json:"body"`
+	Auth    userAuth     `json:"auth"`
+	Server  string       `json:"server"`
+	To      mail.Address `json:"to"`
+	From    mail.Address `json:"from"`
+	Subject string       `json:"subject"`
+	Body    string       `json:"body"`
 }
 
 func main() {
@@ -32,7 +36,7 @@ func main() {
 
 	json.Unmarshal(byteValue, &c)
 
-	Init(c.Username, c.Password, c.Server)
+	Init(c.Auth.Username, c.Auth.Password, c.Server)
 
 	SendMail(c.To, c.From, c.Subject, c.Body)
 }

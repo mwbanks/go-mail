@@ -29,6 +29,9 @@ func SendMail(to, from mail.Address, subject, body string) {
 	headers["From"] = from.String()
 	headers["To"] = to.String()
 	headers["Subject"] = subject
+	headers["Mime-Version"] = "1.0;"
+	headers["Content-Type"] = "text/html; charset=\"ISO-8859-1\";"
+	headers["Content-Transfer-Encoding"] = "7bit;"
 
 	// Setup message
 	message := ""
@@ -41,8 +44,7 @@ func SendMail(to, from mail.Address, subject, body string) {
 
 	// TLS config
 	tlsconfig := &tls.Config{
-		InsecureSkipVerify: true,
-		ServerName:         host,
+		ServerName: host,
 	}
 
 	c, err := smtp.Dial(server)
