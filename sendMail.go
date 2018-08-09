@@ -1,4 +1,4 @@
-package main
+package goMail
 
 import (
 	"crypto/tls"

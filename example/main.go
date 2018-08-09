@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	gm "github.com/mwbanks/goMail"
 	"io/ioutil"
 	"net/mail"
 	"os"
@@ -36,7 +37,7 @@ func main() {
 
 	json.Unmarshal(byteValue, &c)
 
-	Init(c.Auth.Username, c.Auth.Password, c.Server)
+	gm.Init(c.Auth.Username, c.Auth.Password, c.Server)
 
-	SendMail(c.To, c.From, c.Subject, c.Body)
+	gm.SendMail(c.To, c.From, c.Subject, c.Body)
 }
